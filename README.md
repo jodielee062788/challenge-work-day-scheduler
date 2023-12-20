@@ -26,23 +26,23 @@ To install and run this project locally, follow these steps:
 
 1. Upon opening the planner, the current day is displayed at the top of the calendar.
 
-    ![Screenshot of Javascript Quiz Frontpage](.)
+    ![Screenshot of Work Day Scheduler](./assets/img/1.png)
 
 2. Scroll down to view timeblocks for standard business hours (9 am – 5 pm). Each timeblock is color-coded to indicate whether it is in the past, present, or future.
 
-    ![Screenshot of Javascript Quiz Frontpage](./)
+    ![GIF of the timeblocks](./assets/img/2.gif)
 
 3. Click into a timeblock to enter an event.
 
-    ![Screenshot of Javascript Quiz Frontpage](./)
+    ![GIF showing how to enter event on the textarea](./assets/img/3.gif)
 
 4. Save the entered event by clicking the save button for that timeblock.
 
-    ![Screenshot of Javascript Quiz Frontpage](./)
+    ![GIF showing how to save the event](./assets/img/4.gif)
 
-5. Refresh the page; saved events persist.
+5. Refresh the page; saved events persist. New events can be saved by entering a new  event and clicking the save button.
 
-    ![Screenshot of Javascript Quiz Frontpage](.)
+    ![GIF showing that when the page is refreshed, saved event persist](./assets/img/5.gif)
 
 ## Live Demo
 
