@@ -37,17 +37,40 @@ $(function () {
   var currentHour = dayjs().format("H");
 
   // Apply past, present, or future class to each time block
-  $(".time-block").each(function () {
-    var blockHour = parseInt($(this).attr("id").split("-")[1]);
-    if (blockHour < currentHour) {
-      $(this).removeClass("present future").addClass("past");
-    } else if (blockHour == currentHour) {
-      $(this).removeClass("past future").addClass("present");
-    } else {
-      $(this).removeClass("past present").addClass("future");
-    }
-  });
+  function generateTimeBlocks() {
+    var container = $("#timeBlocksContainer");
+    container.empty();
 
+    var currentHour = dayjs().hour();
+
+    for (var hour = 9; hour <= 17; hour++) {
+      var timeBlock = $('<div class="row time-block">');
+      timeBlock.attr("id", "hour-" + hour);
+
+      var hourColumn = $('<div class="col-2 col-md-1 hour text-center py-3">');
+      var formattedHour = dayjs().hour(hour).format("hA");
+      hourColumn.text(formattedHour);
+
+      var descriptionColumn = $('<textarea class="col-8 col-md-10 description" rows="3"> </textarea>');
+
+      var saveButton = $('<button class="btn saveBtn col-2 col-md-1" aria-label="save">');
+      saveButton.html('<i class="fas fa-save" aria-hidden="true"></i>');
+
+      timeBlock.append(hourColumn, descriptionColumn, saveButton);
+      container.append(timeBlock);
+
+      // Apply past, present, or future class based on the current hour
+      if (hour < currentHour) {
+        timeBlock.addClass("past");
+      } else if (hour === currentHour) {
+        timeBlock.addClass("present");
+      } else {
+        timeBlock.addClass("future");
+      }
+    }
+  }
+
+  generateTimeBlocks();
   // Add listener for click events on the save button
   $(".saveBtn").on("click", function () {
     // Get the id of the corresponding time block
