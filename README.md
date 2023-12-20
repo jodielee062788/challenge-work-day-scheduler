@@ -46,7 +46,7 @@ To install and run this project locally, follow these steps:
 
 ## Live Demo
 
-Check out the live demo of the Password Generator [here](https://jodielee062788.github.io/challenge-work-day-scheduler/).
+Check out the live demo of the Work Day Scheduler [here](https://jodielee062788.github.io/challenge-work-day-scheduler/).
 
 ## Credits
 
