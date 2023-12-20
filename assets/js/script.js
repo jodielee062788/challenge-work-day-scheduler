@@ -14,28 +14,28 @@ $(function () {
 
   // Function to generate time blocks
   function generateTimeBlocks() {
-    var container = $("#timeBlocksContainer");
-    container.empty();
+    var container = $("#timeBlocks");
+    container.empty(); // to clear the existing content inside the container before generating and appending new time blocks
 
-    // Loop through hours from 9 to 17
+    // Loop through hours from 9 to 17 (9am to 5pm)
     for (var hour = 9; hour <= 17; hour++) {
       var timeBlock = $('<div class="row time-block">');
-      timeBlock.attr("id", "hour-" + hour);
+      timeBlock.attr("id", "hour-" + hour); // sets ID to hour + current hour
 
       // Create hour column
       var hourColumn = $('<div class="col-2 col-md-1 hour text-center py-3">');
-      var formattedHour = dayjs().hour(hour).format("hA");
+      var formattedHour = dayjs().hour(hour).format("hA"); // Formats current hour using day.js
       hourColumn.text(formattedHour);
 
-      // Create description textarea
-      var descriptionColumn = $('<textarea class="col-8 col-md-10 description" rows="3"> </textarea>');
+      // Create schedule description textarea where user will input the schedule 
+      var scheduleColumn = $('<textarea class="col-8 col-md-10 description" rows="3"> </textarea>');
 
       // Create save button
       var saveButton = $('<button class="btn saveBtn col-2 col-md-1" aria-label="save">');
       saveButton.html('<i class="fas fa-save" aria-hidden="true"></i>');
 
       // Append components to the time block
-      timeBlock.append(hourColumn, descriptionColumn, saveButton);
+      timeBlock.append(hourColumn, scheduleColumn, saveButton);
       container.append(timeBlock);
 
       // Apply past, present, or future class based on the current hour
@@ -65,12 +65,12 @@ $(function () {
   });
 
   // Get and set values for textarea elements from local storage
-  $(".time-block").each(function () {
+  $(".time-block").each(function () { // each function is used to iterate over each .time-block element
     var blockId = $(this).attr("id");
-    var storedInput = localStorage.getItem(blockId);
+    var storedInput = localStorage.getItem(blockId); // to retrieve the stored value
 
     if (storedInput) {
-      $(this).find(".description").val(storedInput);
+      $(this).find(".description").val(storedInput); // searches for elements with description class that are descendants of the current element
     }
   });
 });
