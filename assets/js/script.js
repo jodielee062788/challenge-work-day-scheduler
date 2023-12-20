@@ -1,61 +1,40 @@
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
-//$(function () {
-  // TODO: Add a listener for click events on the save button. This code should
-  // use the id in the containing time-block as a key to save the user input in
-  // local storage. HINT: What does `this` reference in the click listener
-  // function? How can DOM traversal be used to get the "hour-x" id of the
-  // time-block containing the button that was clicked? How might the id be
-  // useful when saving the description in local storage?
-  //
-  // TODO: Add code to apply the past, present, or future class to each time
-  // block by comparing the id to the current hour. HINTS: How can the id
-  // attribute of each time-block be used to conditionally add or remove the
-  // past, present, and future classes? How can Day.js be used to get the
-  // current hour in 24-hour time?
-  //
-  // TODO: Add code to get any user input that was saved in localStorage and set
-  // the values of the corresponding textarea elements. HINT: How can the id
-  // attribute of each time-block be used to do this?
-  //
-  // TODO: Add code to display the current date in the header of the page.
-//});
-
 $(function () {
-  // Display current date in the header
+  // Display current date and time in the header
   function displayDateAndTime() {
     var currentDateAndTime = dayjs().format("dddd | MMMM D, YYYY | h:mm:ss A");
     $("#currentDay").text(currentDateAndTime);
   }
 
-  // Initial update
+  // Initial update and refresh every second
   displayDateAndTime();
-  setInterval(displayDateAndTime, 1000); 
+  setInterval(displayDateAndTime, 1000);
 
   // Get current hour in 24-hour format
-  var currentHour = dayjs().format("H");
+  var currentHour = dayjs().hour();
 
-  // Apply past, present, or future class to each time block
+  // Function to generate time blocks
   function generateTimeBlocks() {
     var container = $("#timeBlocksContainer");
     container.empty();
 
-    var currentHour = dayjs().hour();
-
+    // Loop through hours from 9 to 17
     for (var hour = 9; hour <= 17; hour++) {
       var timeBlock = $('<div class="row time-block">');
       timeBlock.attr("id", "hour-" + hour);
 
+      // Create hour column
       var hourColumn = $('<div class="col-2 col-md-1 hour text-center py-3">');
       var formattedHour = dayjs().hour(hour).format("hA");
       hourColumn.text(formattedHour);
 
+      // Create description textarea
       var descriptionColumn = $('<textarea class="col-8 col-md-10 description" rows="3"> </textarea>');
 
+      // Create save button
       var saveButton = $('<button class="btn saveBtn col-2 col-md-1" aria-label="save">');
       saveButton.html('<i class="fas fa-save" aria-hidden="true"></i>');
 
+      // Append components to the time block
       timeBlock.append(hourColumn, descriptionColumn, saveButton);
       container.append(timeBlock);
 
@@ -70,12 +49,14 @@ $(function () {
     }
   }
 
+  // Generate time blocks on page load
   generateTimeBlocks();
+
   // Add listener for click events on the save button
   $(".saveBtn").on("click", function () {
     // Get the id of the corresponding time block
     var blockId = $(this).parent().attr("id");
-    
+
     // Get the user input from the textarea
     var userInput = $(this).siblings(".description").val();
 
